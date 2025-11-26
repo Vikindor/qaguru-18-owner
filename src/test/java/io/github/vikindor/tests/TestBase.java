@@ -7,6 +7,7 @@ import io.github.vikindor.config.ProjectConfig;
 import io.github.vikindor.helpers.Attach;
 import io.github.vikindor.pages.ProfilePage;
 import io.qameta.allure.selenide.AllureSelenide;
+import io.restassured.RestAssured;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -17,7 +18,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-import static io.restassured.RestAssured.*;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class TestBase {
@@ -48,7 +48,7 @@ public class TestBase {
         ));
         Configuration.browserCapabilities = capabilities;
 
-        baseURI = cfg.baseUrl();
+        RestAssured.baseURI = cfg.baseUrl();
     }
 
     @BeforeEach
