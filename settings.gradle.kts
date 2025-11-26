@@ -1,0 +1,1 @@
+rootProject.name = "qaguru-18-owner"
