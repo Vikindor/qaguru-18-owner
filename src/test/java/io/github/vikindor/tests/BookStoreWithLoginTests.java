@@ -2,14 +2,32 @@ package io.github.vikindor.tests;
 
 import io.github.vikindor.api.BookStoreApi;
 import io.github.vikindor.extensions.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static io.github.vikindor.data.TestData.*;
 import static io.github.vikindor.specs.BookStoreSpecs.responseSpec;
 import static io.qameta.allure.Allure.step;
+import static org.hamcrest.Matchers.anyOf;
+import static org.hamcrest.Matchers.is;
+
 
 @WithLogin
 public class BookStoreWithLoginTests extends TestBase {
+
+    @BeforeEach
+    void cleanupCart() {
+        String userId = AuthContext.getUserId();
+        String token = AuthContext.getToken();
+
+        // Because DELETE /BookStore/v1/Books does not work on DemoQA,
+        // I perform the cleanup individually in this case.
+        step("Make request to cleanup the cart (idempotent)", () ->
+                BookStoreApi.deleteBook(userId, token, BOOK_ISBN)
+                            .then()
+                            .statusCode(anyOf(is(204), is(400)))
+        );
+    }
 
     @Test
     void shouldAddBookAndRemoveItFromListThroughApi() {

@@ -1,7 +1,6 @@
 package io.github.vikindor.tests;
 
 import io.github.vikindor.api.BookStoreApi;
-import io.github.vikindor.pages.ProfilePage.*;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import static io.github.vikindor.data.TestData.*;
 import static io.github.vikindor.specs.BookStoreSpecs.*;
 import static io.qameta.allure.Allure.step;
+import static org.hamcrest.Matchers.anyOf;
+import static org.hamcrest.Matchers.is;
 
 public class BookStoreTests extends TestBase {
 
@@ -16,7 +17,6 @@ public class BookStoreTests extends TestBase {
     String token;
     String expires;
 
-    @BeforeEach
     void doAuthAndExtractLoginData() {
         Response response = step("Make authorization request", () ->
                 BookStoreApi.doAuth(AUTH_DATA)
@@ -28,6 +28,22 @@ public class BookStoreTests extends TestBase {
         this.userId = response.path("userId");
         this.token = response.path("token");
         this.expires = response.path("expires");
+    }
+
+    void cleanupCart() {
+        // Because DELETE /BookStore/v1/Books does not work on DemoQA,
+        // I perform the cleanup individually in this case.
+        step("Make request to cleanup the cart (idempotent)", () ->
+                BookStoreApi.deleteBook(userId, token, BOOK_ISBN)
+                            .then()
+                            .statusCode(anyOf(is(204), is(400)))
+        );
+    }
+
+    @BeforeEach
+    void doAuthAndPrepareCart() {
+        doAuthAndExtractLoginData();
+        cleanupCart();
     }
 
     @Test
