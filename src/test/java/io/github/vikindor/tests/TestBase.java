@@ -24,17 +24,15 @@ public class TestBase {
 
     ProfilePage profilePage = new ProfilePage();
 
-    private static ProjectConfig cfg;
+    private static final ProjectConfig cfg = ConfigFactory.create(ProjectConfig.class, System.getProperties());
 
     @BeforeAll
     static void setupConfig() {
         String env = System.getProperty("env", "local");
         System.setProperty("env", env);
 
-        cfg = ConfigFactory.create(ProjectConfig.class, System.getProperties());
-
         String remote = cfg.remoteUrl();
-        if (remote != null && !remote.isBlank()) { Configuration.remote = remote; }
+        Configuration.remote = remote;
         Configuration.browser          = cfg.browser();
         Configuration.browserVersion   = cfg.browserVersion();
         Configuration.browserSize      = cfg.browserSize();
