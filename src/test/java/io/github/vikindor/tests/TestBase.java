@@ -31,8 +31,7 @@ public class TestBase {
         String env = System.getProperty("env", "local");
         System.setProperty("env", env);
 
-        String remote = cfg.remoteUrl();
-        Configuration.remote = remote;
+        Configuration.remote           = cfg.remoteUrl();
         Configuration.browser          = cfg.browser();
         Configuration.browserVersion   = cfg.browserVersion();
         Configuration.browserSize      = cfg.browserSize();
