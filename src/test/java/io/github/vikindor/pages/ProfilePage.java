@@ -11,12 +11,12 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class ProfilePage {
 
-    SelenideElement userName = $("#userName-value");
-    SelenideElement tableNoData = $(".rt-noData");
-    SelenideElement modalOkButton = $("#closeSmallModal-ok");
-    ElementsCollection books = $$(".rt-tr-group");
-    String deleteIcon = "#delete-record-undefined";
-    String tableNoDataText = "No rows found";
+    private final SelenideElement userName = $("#userName-value");
+    private final SelenideElement tableNoData = $(".rt-noData");
+    private final SelenideElement modalOkButton = $("#closeSmallModal-ok");
+    private final ElementsCollection books = $$(".rt-tr-group");
+    private final String deleteIcon = "#delete-record-undefined";
+    private final String tableNoDataText = "No rows found";
 
     @Step("Open Profile page")
     public ProfilePage openPage() {
