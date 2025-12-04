@@ -12,10 +12,8 @@ import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.TestInfo;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import java.lang.reflect.Method;
 import java.util.Map;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
