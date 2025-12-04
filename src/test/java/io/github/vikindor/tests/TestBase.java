@@ -52,13 +52,11 @@ public class TestBase {
     void addListener() { SelenideLogger.addListener("AllureSelenide", new AllureSelenide()); }
 
     @AfterEach
-    void addAttachments(TestInfo testInfo) {
-        String methodName = testInfo.getTestMethod().map(Method::getName).get();
-
-        Attach.screenshotAs("Screenshot_" + methodName);
+    void addAttachments() {
+        Attach.screenshot();
         Attach.pageSource();
         Attach.browserConsoleLogs();
-        Attach.addVideo();
+        Attach.video();
 
         closeWebDriver();
     }
