@@ -15,8 +15,8 @@ import static org.openqa.selenium.logging.LogType.BROWSER;
 
 public class Attach {
 
-    @Attachment(value = "{attachName}", type = "image/png")
-    public static byte[] screenshotAs(String attachName) {
+    @Attachment(value = "Screenshot", type = "image/png")
+    public static byte[] screenshot() {
         return ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
     }
 
@@ -38,7 +38,7 @@ public class Attach {
     }
 
     @Attachment(value = "Video", type = "text/html", fileExtension = ".html")
-    public static String addVideo() {
+    public static String video() {
         return "<html><body><video width='100%' height='100%' controls autoplay><source src='"
                 + getVideoUrl()
                 + "' type='video/mp4'></video></body></html>";
