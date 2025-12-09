@@ -20,9 +20,9 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class TestBase {
 
-    ProfilePage profilePage = new ProfilePage();
-
     private static final ProjectConfig cfg = ConfigFactory.create(ProjectConfig.class, System.getProperties());
+
+    ProfilePage profilePage = new ProfilePage();
 
     @BeforeAll
     static void setupConfig() {
